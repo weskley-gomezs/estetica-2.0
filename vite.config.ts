@@ -10,11 +10,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
+    // Removido o terser para evitar erro de dependência ausente
+    minify: 'esbuild',
+    reportCompressedSize: false
   }
 });
