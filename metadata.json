@@ -1,0 +1,7 @@
+{
+  "name": "L'Éclat Aesthetics & Wellness",
+  "description": "A high-end, AI-powered aesthetics clinic website featuring personalized skincare consultations and luxury treatment showcases.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
