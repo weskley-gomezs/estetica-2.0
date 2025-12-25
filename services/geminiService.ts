@@ -2,7 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 /* Initialize GoogleGenAI with direct access to process.env.API_KEY as per guidelines */
-const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
+// @ts-ignore: process.env is defined by Vite at build time
+const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 export const getSkinConsultation = async (concerns: string, skinType: string) => {
   const ai = getAI();
