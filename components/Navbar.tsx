@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, Diamond } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,34 +22,33 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-lg py-3 shadow-sm' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-700 ${scrolled ? 'bg-luxury-dark/90 backdrop-blur-xl py-4 shadow-2xl' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3 group cursor-pointer">
             <div className="relative">
-               <Sparkles className="h-6 w-6 text-rose-400 group-hover:rotate-12 transition-transform duration-500" />
-               <div className="absolute inset-0 blur-md bg-rose-200/50 scale-150 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+               <Diamond className="h-6 w-6 text-accent-bronze group-hover:rotate-[120deg] transition-transform duration-700" />
             </div>
-            <span className="font-serif text-2xl tracking-[0.2em] uppercase text-stone-800 font-light">L'Éclat</span>
+            <span className="font-serif text-2xl tracking-[0.3em] uppercase text-white font-light">L'Éclat</span>
           </div>
 
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center space-x-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-stone-500 hover:text-rose-400 transition-colors text-xs font-medium uppercase tracking-[0.2em]"
+                className="text-white/50 hover:text-accent-bronze transition-colors text-[10px] font-bold uppercase tracking-[0.3em]"
               >
                 {link.name}
               </a>
             ))}
-            <button className="bg-rose-400 text-white px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-rose-800 transition-all transform hover:scale-105 soft-glow">
-              Agendar
+            <button className="bg-accent-bronze text-luxury-dark px-10 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg">
+              Agendar VIP
             </button>
           </div>
 
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-stone-800 p-2">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2">
               {isOpen ? <X strokeWidth={1.5} /> : <Menu strokeWidth={1.5} />}
             </button>
           </div>
@@ -58,19 +57,20 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-rose-100 p-8 space-y-6 animate-in slide-in-from-top-5 duration-500">
+        <div className="md:hidden absolute top-0 left-0 w-full h-screen bg-luxury-dark flex flex-col items-center justify-center space-y-10 animate-in fade-in zoom-in duration-300">
+          <button onClick={() => setIsOpen(false)} className="absolute top-8 right-6 text-white"><X size={32} /></button>
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block text-stone-600 hover:text-rose-400 text-center py-2 text-2xl font-serif"
+              className="text-white hover:text-accent-bronze text-4xl font-serif italic"
             >
               {link.name}
             </a>
           ))}
-          <button className="w-full bg-rose-400 text-white px-6 py-4 rounded-full text-xs font-bold uppercase tracking-widest">
-            Agendar Agora
+          <button className="bg-accent-bronze text-luxury-dark px-12 py-5 rounded-full text-xs font-bold uppercase tracking-widest">
+            Solicitar Convite
           </button>
         </div>
       )}
