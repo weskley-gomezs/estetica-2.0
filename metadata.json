@@ -1,5 +1,7 @@
 {
   "name": "L'Éclat Aesthetics & Wellness",
-  "description": "A high-end aesthetics clinic website featuring luxury treatment showcases and personalized wellness experiences.",
-  "requestFramePermissions": []
+  "description": "Clínica boutique de estética avançada em São Paulo. Harmonização facial, bioestimuladores e protocolos de luxo personalizados.",
+  "requestFramePermissions": [
+    "camera"
+  ]
 }
