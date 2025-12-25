@@ -3,7 +3,6 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import SmartConsultation from './components/SmartConsultation';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
@@ -50,8 +49,6 @@ const App: React.FC = () => {
 
       <Services />
 
-      <SmartConsultation />
-
       {/* Testimonials - Elegant Cards */}
       <section id="feedback" className="py-32 bg-luxury">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -63,7 +60,7 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               { name: 'Juliana S.', role: 'Empresária', text: 'Encontrei na L\'Éclat a sutilidade que sempre busquei. O atendimento é verdadeiramente VIP.' },
-              { name: 'Carla F.', role: 'Arquiteta', text: 'A análise da IA me ajudou a entender melhor minha pele. O tratamento superou minhas expectativas.' },
+              { name: 'Carla F.', role: 'Arquiteta', text: 'O atendimento superou minhas expectativas. A clínica é impecável e os resultados são incríveis.' },
               { name: 'Fernanda M.', role: 'Médica', text: 'Rigidez técnica aliada a um ambiente acolhedor. Me sinto em casa a cada visita.' },
             ].map((t, idx) => (
               <div key={idx} className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 border border-rose-50 flex flex-col items-center text-center">

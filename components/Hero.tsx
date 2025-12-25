@@ -34,13 +34,12 @@ const Hero: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-            <a 
-              href="#ia" 
+            <button 
               className="bg-stone-800 text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-stone-700 transition-all group soft-glow"
             >
-              Consultoria IA personalizada
+              Agendar Avaliação VIP
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </button>
             <a 
               href="#tratamentos" 
               className="bg-white/50 backdrop-blur-md border border-rose-200 text-rose-800 px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest text-center hover:bg-rose-100 transition-all"
