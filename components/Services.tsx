@@ -1,77 +1,84 @@
 
 import React from 'react';
 import { Service } from '../types';
+import { ChevronRight } from 'lucide-react';
 
 const services: Service[] = [
   {
     id: '1',
     title: 'Harmonização Sutil',
     category: 'Injetáveis',
-    description: 'Realce estrutural focado em naturalidade absoluta e elegância.',
-    imageUrl: 'https://images.unsplash.com/photo-1598444440389-d804a22ae902?auto=format&fit=crop&q=80&w=1000'
+    description: 'Preenchimento com ácido hialurônico focado em realçar pontos estratégicos sem mudar sua essência.',
+    imageUrl: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1600&auto=format&fit=crop'
   },
   {
     id: '2',
     title: 'Bioestimuladores',
-    category: 'Facial',
-    description: 'Protocolos de sustentação que estimulam sua própria juventude celular.',
-    imageUrl: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=1000'
+    category: 'Sustentação',
+    description: 'Estimule a produção natural de colágeno, garantindo firmeza e viço por até 2 anos.',
+    imageUrl: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1600&auto=format&fit=crop'
   },
   {
     id: '3',
     title: 'Ultraformer MPT',
-    category: 'Facial',
-    description: 'O padrão ouro em lifting não invasivo e contorno facial imediato.',
-    imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=1000'
+    category: 'Tecnologia',
+    description: 'O lifting não invasivo queridinho das celebridades. Efeito imediato de contorno e firmeza.',
+    imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1600&auto=format&fit=crop'
   },
   {
     id: '4',
-    title: 'Body Sculpt',
-    category: 'Corporal',
-    description: 'Tecnologias combinadas para definição muscular e redução de medidas.',
-    imageUrl: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=1000'
+    title: 'Limpeza Premium',
+    category: 'Facial',
+    description: 'Protocolo de 8 etapas para desintoxicação profunda, hidratação e brilho instantâneo.',
+    imageUrl: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1600&auto=format&fit=crop'
   }
 ];
 
-const Services: React.FC = () => {
+interface Props {
+  onShowMore: () => void;
+}
+
+const Services: React.FC<Props> = ({ onShowMore }) => {
   return (
-    <section id="tratamentos" className="py-40 bg-luxury-dark">
+    <section id="tratamentos" className="py-32 bg-luxury-dark border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-32">
-          <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">Curadoria de Procedimentos</span>
-          <h2 className="text-6xl font-serif text-white mb-8">Protocolos de Elite</h2>
-          <p className="text-white/40 font-light leading-relaxed text-lg">
-            Combinamos inteligência clínica com as tecnologias mais desejadas do mundo para entregar resultados que superam expectativas.
-          </p>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="max-w-2xl">
+            <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Cardápio de Beleza</span>
+            <h2 className="text-5xl font-serif text-white mb-6">Tratamentos <span className="italic">Result Oriented</span></h2>
+            <p className="text-white/40 font-light text-lg">Escolha o seu objetivo e deixe nossa equipe de elite cuidar do resto.</p>
+          </div>
+          <button 
+            onClick={onShowMore}
+            className="bg-white/5 text-white border border-white/10 px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent-bronze hover:text-luxury-dark transition-all"
+          >
+            Ver Todos os Protocolos
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
-            <div key={service.id} className="group relative">
-              <div className="relative h-[550px] overflow-hidden rounded-[3rem] transition-all duration-700 border border-white/5 group-hover:border-accent-bronze/30">
-                <img 
-                  src={service.imageUrl} 
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-60 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-luxury-dark via-luxury-dark/20 to-transparent opacity-90 transition-opacity group-hover:opacity-70"></div>
-                
-                <div className="absolute bottom-10 left-10 right-10 transition-transform duration-500 group-hover:-translate-y-4">
-                  <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest mb-3 block">{service.category}</span>
-                  <h3 className="text-3xl font-serif text-white mb-4 leading-tight">{service.title}</h3>
-                  <p className="text-white/50 text-xs font-light leading-relaxed h-0 overflow-hidden group-hover:h-auto group-hover:mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    {service.description}
-                  </p>
+            <div key={service.id} className="group bg-luxury-charcoal rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-accent-bronze/30 transition-all">
+              <div className="relative h-64 overflow-hidden">
+                <img src={service.imageUrl} alt={service.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute top-4 left-4 bg-luxury-dark/60 backdrop-blur-md px-4 py-1 rounded-full border border-white/10">
+                  <span className="text-[8px] font-bold uppercase tracking-widest text-accent-bronze">{service.category}</span>
+                </div>
+              </div>
+              <div className="p-8">
+                <h3 className="text-xl font-serif text-white mb-4">{service.title}</h3>
+                <p className="text-white/40 text-xs font-light leading-relaxed mb-6 h-12 line-clamp-3">
+                  {service.description}
+                </p>
+                <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                  <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest">A partir de R$ 290</span>
+                  <button className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                    Agendar <ChevronRight className="w-3 h-3" />
+                  </button>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-        
-        <div className="mt-32 text-center">
-          <button className="bg-luxury-charcoal text-white border border-white/10 px-12 py-5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent-bronze hover:text-luxury-dark transition-all">
-            Explorar todos os protocolos
-          </button>
         </div>
       </div>
     </section>

@@ -1,16 +1,10 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Acessa a chave definida pelo Vite no build time
-const API_KEY = process.env.API_KEY;
-
 export const getSkinConsultation = async (concerns: string, skinType: string) => {
-  if (!API_KEY) {
-    console.error("Chave de API não configurada.");
-    return null;
-  }
-
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  // Initialize GoogleGenAI directly with process.env.API_KEY as per the library guidelines.
+  // The key's availability is handled externally.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   try {
     const response = await ai.models.generateContent({
@@ -35,6 +29,7 @@ export const getSkinConsultation = async (concerns: string, skinType: string) =>
       }
     });
 
+    // Access the .text property directly from GenerateContentResponse
     const text = response.text;
     return text ? JSON.parse(text.trim()) : null;
   } catch (e) {

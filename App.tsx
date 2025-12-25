@@ -1,170 +1,192 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import SmartConsultation from './components/SmartConsultation';
 import Footer from './components/Footer';
-import { Camera, Map, Star, UserCheck, Diamond, Quote } from 'lucide-react';
+import TreatmentsPage from './components/TreatmentsPage';
+import IAAdvisorPage from './components/IAAdvisorPage';
+import ResultsPage from './components/ResultsPage';
+import ContactPage from './components/ContactPage';
+import BookingPage from './components/BookingPage';
+import { 
+  CheckCircle2, 
+  Star, 
+  MessageCircle, 
+  ShieldCheck, 
+  Clock, 
+  TrendingUp, 
+  Award, 
+  Users,
+  ChevronRight,
+  Sparkles
+} from 'lucide-react';
+
+type ViewState = 'home' | 'treatments' | 'ia' | 'results' | 'contact' | 'booking';
 
 const App: React.FC = () => {
-  return (
-    <div className="min-h-screen selection:bg-accent-bronze/30 selection:text-white">
-      <Navbar />
-      <Hero />
-      
-      {/* Manifesto Section */}
-      <section id="clinica" className="py-40 bg-luxury-dark relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div className="relative group">
-              <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5">
-                <img 
-                  src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1000" 
-                  alt="L'Éclat Concept" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-              </div>
-              <div className="absolute -bottom-10 -right-10 glass p-8 rounded-3xl hidden md:block border border-white/10 animate-float">
-                <p className="font-serif text-3xl text-accent-bronze">15+</p>
-                <p className="text-[10px] uppercase tracking-widest text-white/50">Anos de Excelência</p>
-              </div>
-            </div>
+  const [view, setView] = useState<ViewState>('home');
+
+  // Scroll top on view change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
+  const navigateToTreatments = () => setView('treatments');
+  const navigateToIA = () => setView('ia');
+  const navigateToHome = () => setView('home');
+  const navigateToResults = () => setView('results');
+  const navigateToContact = () => setView('contact');
+  const navigateToBooking = () => setView('booking');
+
+  // Helper para renderizar a view atual
+  const renderView = () => {
+    switch(view) {
+      case 'treatments':
+        return <TreatmentsPage onBack={navigateToHome} />;
+      case 'ia':
+        return <IAAdvisorPage onBack={navigateToHome} />;
+      case 'results':
+        return <ResultsPage onBack={navigateToHome} />;
+      case 'contact':
+        return <ContactPage onBack={navigateToHome} />;
+      case 'booking':
+        return <BookingPage onBack={navigateToHome} />;
+      default:
+        return (
+          <>
+            <Hero onExploreTreatments={navigateToTreatments} onBooking={navigateToBooking} />
             
-            <div className="space-y-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-accent-bronze text-[10px] font-bold uppercase tracking-[0.3em]">
-                <Diamond className="w-3 h-3" /> Nossa Filosofia
-              </div>
-              
-              <h2 className="text-6xl md:text-7xl font-serif text-white leading-tight">
-                Beleza é uma <br />
-                <span className="italic font-light text-accent-bronze">declaração de amor.</span>
-              </h2>
-              
-              <p className="text-white/60 font-light leading-relaxed text-xl max-w-xl">
-                Na L'Éclat, não seguimos padrões; nós os criamos. Cada rosto é uma tela, cada procedimento é uma pincelada de precisão cirúrgica e sensibilidade artística.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 pt-4">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-accent-bronze/10 flex items-center justify-center text-accent-bronze">
-                    <UserCheck className="w-5 h-5" />
-                  </div>
-                  <h4 className="font-serif text-xl text-white">Privacidade Absoluta</h4>
-                  <p className="text-white/40 text-xs font-light leading-relaxed">Fluxo de atendimento desenhado para garantir total discrição aos nossos pacientes.</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-accent-bronze/10 flex items-center justify-center text-accent-bronze">
-                    <Star className="w-5 h-5" />
-                  </div>
-                  <h4 className="font-serif text-xl text-white">Curadoria Científica</h4>
-                  <p className="text-white/40 text-xs font-light leading-relaxed">Apenas tecnologias padrão ouro mundial, com comprovação de resultados reais.</p>
+            {/* Trust Badges */}
+            <section className="bg-luxury-charcoal py-8 border-y border-white/5">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="flex flex-wrap justify-around items-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all">
+                  <div className="flex items-center gap-2"><Award className="w-4 h-4 text-accent-bronze" /><span className="text-[9px] uppercase tracking-widest font-bold">Protocolos Premiados</span></div>
+                  <div className="flex items-center gap-2"><Users className="w-4 h-4 text-accent-bronze" /><span className="text-[9px] uppercase tracking-widest font-bold">+5k Pacientes Felizes</span></div>
+                  <div className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-accent-bronze" /><span className="text-[9px] uppercase tracking-widest font-bold">Biossegurança Master</span></div>
+                  <div className="flex items-center gap-2"><Star className="w-4 h-4 text-accent-bronze" /><span className="text-[9px] uppercase tracking-widest font-bold">Nota Máxima Google</span></div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
 
-      <Services />
+            {/* Social Proof Section (Snippet na Home) */}
+            <section id="resultados" className="py-32 bg-luxury-dark overflow-hidden">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                  <div className="max-w-xl">
+                     <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Transformações Reais</span>
+                     <h2 className="text-5xl font-serif text-white mb-6">Excelência em <span className="italic">Resultados.</span></h2>
+                     <p className="text-white/30 font-light">A beleza que você deseja, com a naturalidade que você merece.</p>
+                  </div>
+                  <button 
+                    onClick={navigateToResults}
+                    className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest hover:text-white transition-all active:scale-95 border-b border-accent-bronze/30 pb-2"
+                  >
+                    Ver Galeria de Casos Completa
+                  </button>
+                </div>
 
-      {/* Gallery - Dark Bento Style */}
-      <section className="py-40 bg-luxury-charcoal relative">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-xl">
-              <h2 className="text-5xl font-serif text-white mb-6">O Santuário</h2>
-              <p className="text-white/40 font-light">Ambientes pensados para o seu bem-estar sensorial, onde o tempo parece parar.</p>
-            </div>
-            <button className="text-accent-bronze font-bold text-[10px] uppercase tracking-widest border-b border-accent-bronze/30 pb-2 hover:border-accent-bronze transition-all">
-              Ver Galeria Completa
-            </button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[800px] md:h-[600px]">
-            <div className="md:col-span-8 relative overflow-hidden rounded-[2rem] group border border-white/5">
-              <img src="https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Clinic Interior" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-              <div className="absolute bottom-10 left-10 text-white">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-accent-bronze">Main Lounge</span>
-                <h3 className="text-3xl font-serif italic mt-2">Conforto & Sofisticação</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {[
+                    { 
+                      label: 'Rejuvenescimento', 
+                      time: '2 sessões',
+                      img: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1200&auto=format&fit=crop'
+                    },
+                    { 
+                      label: 'Harmonização', 
+                      time: 'Imediato',
+                      img: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1200&auto=format&fit=crop'
+                    },
+                    { 
+                      label: 'Contorno Corporal', 
+                      time: '4 sessões',
+                      img: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1200&auto=format&fit=crop'
+                    }
+                  ].map((item, i) => (
+                    <div key={i} className="group relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/5 cursor-pointer">
+                      <img src={item.img} alt={item.label} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-luxury-dark via-transparent to-transparent opacity-90"></div>
+                      <div className="absolute bottom-8 left-8">
+                        <span className="text-accent-bronze text-[8px] font-bold uppercase tracking-widest mb-2 block">{item.time}</span>
+                        <h3 className="text-white font-serif text-2xl group-hover:text-accent-bronze transition-colors">{item.label}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="md:col-span-4 relative overflow-hidden rounded-[2rem] group border border-white/5">
-              <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all" alt="Treatment" />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                 <Camera className="text-white/20 w-12 h-12 group-hover:scale-125 transition-transform" />
-              </div>
-            </div>
-            <div className="md:col-span-4 relative overflow-hidden rounded-[2rem] glass p-10 flex flex-col justify-between group hover:bg-accent-bronze/5 transition-colors">
-               <Diamond className="text-accent-bronze w-8 h-8" />
-               <div className="space-y-4">
-                 <h4 className="text-2xl font-serif text-white">Exclusividade</h4>
-                 <p className="text-white/40 text-xs font-light leading-relaxed">Nossa agenda é limitada para garantir que cada paciente receba atenção integral e sem pressa.</p>
+            </section>
+
+            <Services onShowMore={navigateToTreatments} />
+
+            {/* IA Section CTA */}
+            <section className="py-32 bg-luxury-charcoal">
+               <div className="max-w-7xl mx-auto px-6">
+                  <div className="grid lg:grid-cols-2 gap-20 items-center">
+                     <div className="space-y-8">
+                        <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-[0.5em] block">Tecnologia L'Éclat</span>
+                        <h2 className="text-5xl md:text-6xl font-serif text-white">Sua Pele, <br /><span className="italic">Decodificada.</span></h2>
+                        <p className="text-white/40 text-lg font-light leading-relaxed">
+                          Não escolha às cegas. Nossa Inteligência Artificial analisa seus objetivos para sugerir os protocolos mais eficazes.
+                        </p>
+                        <button 
+                          onClick={navigateToIA}
+                          className="bg-accent-bronze text-luxury-dark px-12 py-5 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all btn-luxury btn-glow"
+                        >
+                          Abrir Advisor Grátis
+                        </button>
+                     </div>
+                     <div className="relative">
+                        <div className="absolute -inset-4 bg-accent-bronze/10 blur-3xl rounded-full"></div>
+                        <div className="glass p-12 rounded-[4rem] border-accent-bronze/20 text-center relative z-10 hover:border-accent-bronze/40 transition-colors group">
+                          <Sparkles className="w-12 h-12 text-accent-bronze mx-auto mb-8 animate-pulse group-hover:scale-110 transition-transform" />
+                          <p className="text-white/60 font-serif italic text-xl">"A ferramenta mais precisa que já utilizei para entender as necessidades da minha pele."</p>
+                          <div className="mt-8 flex justify-center gap-1">
+                            {[1,2,3,4,5].map(s => <Star key={s} className="w-3 h-3 text-accent-bronze fill-accent-bronze" />)}
+                          </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
-            </div>
-            <div className="md:col-span-8 relative overflow-hidden rounded-[2rem] group border border-white/5">
-              <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Tech" />
-              <div className="absolute top-10 right-10 bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">
-                <span className="text-white text-[10px] font-bold uppercase tracking-widest">Tecnologia Laser</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
+          </>
+        );
+    }
+  };
 
-      <SmartConsultation />
-
-      {/* Testimonials - Noir Edition */}
-      <section id="feedback" className="py-40 bg-luxury-dark">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-24">
-            <h2 className="text-5xl font-serif text-white">Vozes da L'Éclat</h2>
-            <div className="w-12 h-px bg-accent-bronze/30 mx-auto mt-8"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            {[
-              { name: 'Juliana S.', role: 'Empresária', text: 'Finalmente encontrei um lugar que entende que o "menos é mais". Minha harmonização ficou imperceptível e elegante.' },
-              { name: 'Carla F.', role: 'Arquiteta', text: 'O atendimento é impecável. Desde o café de boas-vindas até o pós-procedimento. Realmente diferenciado.' },
-              { name: 'Fernanda M.', role: 'Médica', text: 'Como médica, sou exigente com técnica e biossegurança. A L\'Éclat é referência absoluta em ambos.' },
-            ].map((t, idx) => (
-              <div key={idx} className="relative group p-10 bg-white/[0.02] border border-white/5 rounded-[3rem] transition-all hover:bg-white/[0.05]">
-                <Quote className="w-10 h-10 text-accent-bronze/20 absolute top-8 right-8" />
-                <p className="text-white/50 italic mb-10 font-light leading-relaxed relative z-10 text-lg">"{t.text}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-accent-bronze/20 flex items-center justify-center font-serif text-accent-bronze">
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p className="font-bold text-white text-sm tracking-wide">{t.name}</p>
-                    <p className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest mt-1">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+  return (
+    <div className="min-h-screen selection:bg-accent-bronze/30 selection:text-white font-sans bg-luxury-dark">
+      <Navbar 
+        onNavigateTreatments={navigateToTreatments} 
+        onNavigateHome={navigateToHome} 
+        onNavigateIA={navigateToIA} 
+        onNavigateResults={navigateToResults}
+        onNavigateContact={navigateToContact}
+        onNavigateBooking={navigateToBooking}
+      />
+      {renderView()}
       <Footer />
-      
-      {/* WhatsApp Button */}
-      <div className="fixed bottom-10 right-10 z-50">
-        <a 
-          href="https://wa.me/5511999999999" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="bg-accent-bronze text-luxury-dark w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,163,115,0.4)] hover:scale-110 transition-all group"
-        >
-          <Map className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-          <div className="absolute right-full mr-4 bg-white text-luxury-dark py-2 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
-            Fale Conosco
-          </div>
-        </a>
-      </div>
+      <WhatsAppButton />
     </div>
   );
 };
+
+const WhatsAppButton = () => (
+  <div className="fixed bottom-8 right-8 z-50">
+    <a 
+      href="https://wa.me/5561981535040?text=Olá! Gostaria de agendar uma avaliação na L'Éclat." 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-90 transition-all group relative"
+    >
+      <MessageCircle className="w-8 h-8" />
+      <span className="absolute right-full mr-4 bg-white text-black py-2 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
+         Falar com Especialista Agora
+      </span>
+      <span className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold animate-bounce">1</span>
+    </a>
+  </div>
+);
 
 export default App;

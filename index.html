@@ -4,11 +4,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'Éclat Aesthetics | Alta Performance em Beleza</title>
+    <title>L'Éclat Aesthetics | Resultados Reais em Estética de Luxo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -17,10 +17,11 @@
               accent: {
                 bronze: '#d4a373',
                 gold: '#c5a059',
+                high: '#e6b980', 
               },
               luxury: {
-                dark: '#121212',
-                charcoal: '#1c1c1c',
+                dark: '#0a0a0a',
+                charcoal: '#151515',
                 cream: '#fdfaf9'
               }
             },
@@ -28,19 +29,19 @@
               serif: ['Cormorant Garamond', 'serif'],
               sans: ['Montserrat', 'sans-serif'],
             },
-            animation: {
-              'fade-in-up': 'fadeInUp 1s ease-out forwards',
-              'float': 'float 6s ease-in-out infinite',
-            },
             keyframes: {
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              float: {
+              'subtle-bounce': {
                 '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
+                '50%': { transform: 'translateY(-4px)' },
+              },
+              'shine': {
+                '0%': { left: '-100%' },
+                '100%': { left: '100%' }
               }
+            },
+            animation: {
+              'subtle-bounce': 'subtle-bounce 1s ease-in-out infinite',
+              'shine': 'shine 1.5s ease-in-out infinite',
             }
           }
         }
@@ -48,35 +49,67 @@
     </script>
     <style>
       body {
-        background-color: #121212;
+        background-color: #0a0a0a;
         color: #fdfaf9;
         overflow-x: hidden;
       }
-      
-      /* Efeito de Grão Luxuoso */
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        opacity: 0.05;
-        z-index: 9999;
-      }
-
       .glass {
-        background: rgba(28, 28, 28, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        background: rgba(21, 21, 21, 0.8);
+        backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
+      
+      /* Botão de Luxo com Micro-interações */
+      .btn-luxury {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      .btn-luxury::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: all 0.6s;
+      }
 
-      .text-balance { text-wrap: balance; }
+      .btn-luxury:hover::before {
+        left: 100%;
+      }
+
+      .btn-luxury:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(212, 163, 115, 0.4);
+      }
+
+      .btn-luxury:active {
+        transform: translateY(1px) scale(0.96);
+      }
+
+      .btn-luxury:focus {
+        animation: subtle-bounce 1s ease-in-out infinite;
+        outline: none;
+      }
+
+      .btn-glow {
+        box-shadow: 0 0 20px rgba(212, 163, 115, 0.3);
+      }
+      
       ::-webkit-scrollbar { width: 4px; }
-      ::-webkit-scrollbar-track { background: #121212; }
       ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
+      @keyframes slow-zoom {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
     </style>
   <script type="importmap">
 {

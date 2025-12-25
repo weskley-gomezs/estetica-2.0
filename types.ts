@@ -4,7 +4,8 @@ export interface Service {
   title: string;
   description: string;
   imageUrl: string;
-  category: 'Facial' | 'Corporal' | 'Injetáveis' | 'Bem-estar';
+  // Added 'Sustentação' and 'Tecnologia' to the union type to resolve assignment errors in Services.tsx
+  category: 'Facial' | 'Corporal' | 'Injetáveis' | 'Bem-estar' | 'Sustentação' | 'Tecnologia';
 }
 
 export interface ConsultationResponse {
