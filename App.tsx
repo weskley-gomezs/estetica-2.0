@@ -27,24 +27,48 @@ type ViewState = 'home' | 'treatments' | 'ia' | 'results' | 'contact' | 'booking
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('home');
+  const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
 
   // Scroll top on view change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [view]);
 
-  const navigateToTreatments = () => setView('treatments');
-  const navigateToIA = () => setView('ia');
-  const navigateToHome = () => setView('home');
-  const navigateToResults = () => setView('results');
-  const navigateToContact = () => setView('contact');
-  const navigateToBooking = () => setView('booking');
+  const navigateToTreatments = () => {
+    setSelectedServiceId(undefined);
+    setView('treatments');
+  };
+  
+  const navigateToIA = () => {
+    setSelectedServiceId(undefined);
+    setView('ia');
+  };
+
+  const navigateToHome = () => {
+    setSelectedServiceId(undefined);
+    setView('home');
+  };
+
+  const navigateToResults = () => {
+    setSelectedServiceId(undefined);
+    setView('results');
+  };
+
+  const navigateToContact = () => {
+    setSelectedServiceId(undefined);
+    setView('contact');
+  };
+
+  const navigateToBooking = (serviceId?: string) => {
+    setSelectedServiceId(serviceId);
+    setView('booking');
+  };
 
   // Helper para renderizar a view atual
   const renderView = () => {
     switch(view) {
       case 'treatments':
-        return <TreatmentsPage onBack={navigateToHome} />;
+        return <TreatmentsPage onBack={navigateToHome} onBook={navigateToBooking} />;
       case 'ia':
         return <IAAdvisorPage onBack={navigateToHome} />;
       case 'results':
@@ -52,11 +76,11 @@ const App: React.FC = () => {
       case 'contact':
         return <ContactPage onBack={navigateToHome} />;
       case 'booking':
-        return <BookingPage onBack={navigateToHome} />;
+        return <BookingPage onBack={navigateToHome} initialService={selectedServiceId} />;
       default:
         return (
           <>
-            <Hero onExploreTreatments={navigateToTreatments} onBooking={navigateToBooking} />
+            <Hero onExploreTreatments={navigateToTreatments} onBooking={() => navigateToBooking()} />
             
             {/* Trust Badges */}
             <section className="bg-luxury-charcoal py-8 border-y border-white/5">
@@ -118,7 +142,7 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            <Services onShowMore={navigateToTreatments} />
+            <Services onShowMore={navigateToTreatments} onBook={navigateToBooking} />
 
             {/* IA Section CTA */}
             <section className="py-32 bg-luxury-charcoal">
@@ -163,7 +187,7 @@ const App: React.FC = () => {
         onNavigateIA={navigateToIA} 
         onNavigateResults={navigateToResults}
         onNavigateContact={navigateToContact}
-        onNavigateBooking={navigateToBooking}
+        onNavigateBooking={() => navigateToBooking()}
       />
       {renderView()}
       <Footer />

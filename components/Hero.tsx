@@ -23,40 +23,40 @@ const Hero: React.FC<Props> = ({ onExploreTreatments, onBooking }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center py-24">
         <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full glass border border-accent-bronze/30">
           <Sparkles className="w-3 h-3 text-accent-bronze" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-bronze">Resultados Visíveis em Poucas Sessões</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-bronze">Beleza Baseada em Ciência</span>
         </div>
 
         <h1 className="text-5xl md:text-8xl font-serif text-white leading-[1.1] mb-8 max-w-5xl mx-auto">
-          Recupere sua <span className="italic text-accent-bronze">Autoestima</span> com <br />
-          <span className="font-light">Estética de Alta Performance.</span>
+          Sua melhor versão com <br />
+          <span className="italic text-accent-bronze font-light">Alta Performance.</span>
         </h1>
         
         <p className="text-white/60 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-          Técnicas avançadas, resultados naturais e o atendimento VIP que você merece. 
-          Agende sua avaliação hoje e descubra o protocolo perfeito para você.
+          Onde a tecnologia avançada encontra resultados naturais. <br className="hidden md:block" />
+          Descubra o protocolo ideal para realçar sua beleza única.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button 
             onClick={onBooking}
-            className="bg-accent-bronze text-luxury-dark px-14 py-6 rounded-full font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-3 transition-all btn-luxury btn-glow"
+            className="bg-accent-bronze text-luxury-dark border border-accent-bronze px-14 py-6 rounded-full font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-3 transition-all btn-luxury btn-glow"
           >
-            Agendar Avaliação Grátis
+            Agendar Avaliação
             <ArrowRight className="w-4 h-4" />
           </button>
           <button 
             onClick={onExploreTreatments}
             className="text-white font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 hover:text-accent-bronze transition-all hover:translate-x-1 active:scale-95 group"
           >
-            Explorar Tratamentos
+            Nossos Protocolos
             <TrendingUp className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
         <div className="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-30 text-[10px] font-bold uppercase tracking-widest text-white">
-           <span className="border-r border-white/20 pr-12">Dermatologia Avançada</span>
-           <span className="border-r border-white/20 pr-12">Harmonização Natural</span>
-           <span>Corpo & Face</span>
+           <span className="border-r border-white/20 pr-12">Tecnologia de Ponta</span>
+           <span className="border-r border-white/20 pr-12">Naturalidade</span>
+           <span>Exclusividade</span>
         </div>
       </div>
     </section>

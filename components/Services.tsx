@@ -36,9 +36,10 @@ const services: Service[] = [
 
 interface Props {
   onShowMore: () => void;
+  onBook: (serviceId: string) => void;
 }
 
-const Services: React.FC<Props> = ({ onShowMore }) => {
+const Services: React.FC<Props> = ({ onShowMore, onBook }) => {
   return (
     <section id="tratamentos" className="py-32 bg-luxury-dark border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -72,7 +73,10 @@ const Services: React.FC<Props> = ({ onShowMore }) => {
                 </p>
                 <div className="flex items-center justify-between pt-6 border-t border-white/5">
                   <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest">A partir de R$ 290</span>
-                  <button className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                  <button 
+                    onClick={() => onBook(service.id)}
+                    className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all"
+                  >
                     Agendar <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>

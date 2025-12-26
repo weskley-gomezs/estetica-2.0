@@ -24,16 +24,21 @@ type BookingStep = 'service' | 'datetime' | 'details' | 'success';
 
 const services = [
   { id: 'facial', name: 'Harmonização Sutil', duration: '60 min' },
+  { id: '1', name: 'Harmonização Sutil', duration: '60 min' }, // ID from treatments page
   { id: 'bio', name: 'Bioestimuladores', duration: '45 min' },
+  { id: '2', name: 'Bioestimuladores', duration: '45 min' }, // ID from treatments page
   { id: 'ultra', name: 'Ultraformer MPT', duration: '40 min' },
+  { id: '3', name: 'Ultraformer MPT', duration: '40 min' }, // ID from treatments page
   { id: 'lavieen', name: 'Lavieen BB Laser', duration: '30 min' },
+  { id: '4', name: 'Lavieen BB Laser', duration: '30 min' }, // ID from treatments page
   { id: 'corpo', name: 'Lipo de Alta Definição', duration: '90 min' },
 ];
 
 const timeSlots = ['09:00', '10:30', '13:00', '14:30', '16:00', '17:30', '19:00'];
 
 const BookingPage: React.FC<Props> = ({ onBack, initialService }) => {
-  const [step, setStep] = useState<BookingStep>('service');
+  // If we have an initial service, start at 'datetime' step
+  const [step, setStep] = useState<BookingStep>(initialService ? 'datetime' : 'service');
   const [selectedService, setSelectedService] = useState(initialService || '');
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState('');
@@ -41,6 +46,14 @@ const BookingPage: React.FC<Props> = ({ onBack, initialService }) => {
   const [userPhone, setUserPhone] = useState('');
   const [prepGuide, setPrepGuide] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // Sync state if initialService changes
+  useEffect(() => {
+    if (initialService) {
+      setSelectedService(initialService);
+      setStep('datetime');
+    }
+  }, [initialService]);
 
   // Generate next 7 days
   const availableDates = Array.from({ length: 7 }, (_, i) => {
@@ -98,10 +111,16 @@ const BookingPage: React.FC<Props> = ({ onBack, initialService }) => {
         {/* Header Control */}
         <div className="flex items-center justify-between mb-16">
           <button 
-            onClick={step === 'service' ? onBack : () => setStep(prev => prev === 'datetime' ? 'service' : 'datetime')}
+            onClick={step === 'service' ? onBack : () => {
+              if (initialService && step === 'datetime') {
+                onBack();
+              } else {
+                setStep(prev => prev === 'datetime' ? 'service' : 'datetime');
+              }
+            }}
             className="flex items-center gap-2 text-accent-bronze text-[10px] font-bold uppercase tracking-[0.3em] hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-3 h-3" /> {step === 'service' ? 'Voltar ao Início' : 'Etapa Anterior'}
+            <ArrowLeft className="w-3 h-3" /> {step === 'service' || (initialService && step === 'datetime') ? 'Voltar ao Início' : 'Etapa Anterior'}
           </button>
           
           <div className="flex gap-2">
@@ -152,6 +171,9 @@ const BookingPage: React.FC<Props> = ({ onBack, initialService }) => {
               <div className="space-y-4">
                 <span className="text-accent-bronze text-[10px] font-bold uppercase tracking-[0.5em] block">Passo 02</span>
                 <h1 className="text-5xl font-serif text-white">Momento de <br /><span className="italic text-accent-bronze">Cuidado.</span></h1>
+                {selectedService && (
+                   <p className="text-accent-bronze text-[10px] font-bold uppercase tracking-widest">Protocolo Selecionado: {services.find(s => s.id === selectedService)?.name}</p>
+                )}
               </div>
 
               <div className="space-y-8">

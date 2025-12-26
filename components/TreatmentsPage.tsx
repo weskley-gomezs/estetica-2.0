@@ -64,9 +64,10 @@ const allTreatments: Service[] = [
 
 interface Props {
   onBack: () => void;
+  onBook: (serviceId: string) => void;
 }
 
-const TreatmentsPage: React.FC<Props> = ({ onBack }) => {
+const TreatmentsPage: React.FC<Props> = ({ onBack, onBook }) => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos');
   const categories = ['Todos', 'Injetáveis', 'Tecnologia', 'Facial', 'Corporal', 'Sustentação'];
 
@@ -153,8 +154,11 @@ const TreatmentsPage: React.FC<Props> = ({ onBack }) => {
                     </div>
                   </div>
 
-                  <button className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-accent-bronze group-hover:text-luxury-dark transition-all">
-                    Explorar Protocolo <ChevronRight className="w-3 h-3" />
+                  <button 
+                    onClick={() => onBook(service.id)}
+                    className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-accent-bronze group-hover:text-luxury-dark transition-all"
+                  >
+                    Agendar Protocolo <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -169,7 +173,10 @@ const TreatmentsPage: React.FC<Props> = ({ onBack }) => {
             Nossos especialistas estão prontos para criar um plano personalizado baseado na ciência e na sua beleza única.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-accent-bronze text-luxury-dark px-16 py-6 rounded-full font-bold text-xs uppercase tracking-[0.2em] btn-glow hover:scale-105 transition-all">
+            <button 
+              onClick={() => onBook('facial')}
+              className="bg-accent-bronze text-luxury-dark px-16 py-6 rounded-full font-bold text-xs uppercase tracking-[0.2em] btn-glow hover:scale-105 transition-all"
+            >
               Agendar Avaliação
             </button>
             <button className="border border-white/20 text-white px-16 py-6 rounded-full font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-luxury-dark transition-all">
